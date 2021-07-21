@@ -1,0 +1,72 @@
+<script id="bx24_form_button" data-skip-moving="true">
+    /**
+     *  Подготовка параметров формы
+     */
+    function initB24CrmFormCustom(id, sec, lang, fields, presets) {
+        return {
+            "id": id,
+            "lang": lang,
+            "sec": sec,
+            "type": "button",
+            "click": "",
+            "ref": window.location.origin + '/bitrix/js/crm/form_loader.js',
+            "presets": presets,
+            "fields": {
+                'values': fields
+            }
+        };
+    }
+
+    /**
+     *  Реинициализация формы
+     */
+    function reinitB24CrmFormCustom(id, sec, lang, fields, presets) {
+        if(!window.Bitrix24FormObject || !window[window.Bitrix24FormObject]) return;
+        if(!window[window.Bitrix24FormObject].forms) return;
+        Bitrix24FormLoader.unload(b24formLoad);
+        b24formLoad = initB24CrmFormCustom(id, sec, lang, fields, presets);
+        Bitrix24FormLoader.params = b24formLoad;
+        Bitrix24FormLoader.init();
+        Bitrix24FormLoader.showPopup(b24formLoad);
+    }
+
+    /**
+     *  Стандартное добавление скрипта
+     */
+    var b24formLoad = initB24CrmFormCustom('7', '99g3tg', 'ru');
+    (function(w,d,u,b){w['Bitrix24FormObject']=b;
+        w[b] = w[b] || function(){arguments[0].ref=u;
+            (w[b].forms=w[b].forms||[]).push(arguments[0])};
+        if(w[b]['forms']) return;
+        s=d.createElement('script');
+        r=1*new Date();
+        s.async=1;
+        s.src=u+'?'+r;
+        h=d.getElementsByTagName('script')[0];
+        h.parentNode.insertBefore(s,h);
+    })(window,document,b24formLoad.ref,'b24form');
+    b24form(b24formLoad);
+
+    /**
+     *  Отлов кнопок и реинициализация скрипта
+     */
+    $(function() {
+        $(document).on('click', '[data-bxcrm-form]', function (){
+            fieldName = $(this).data('bxcrm-form-field-name');
+            id = '7';
+            sec = '99g3tg';
+            lang = 'ru';
+            fields = {
+                'LEAD_NAME': fieldName
+            };
+            presets = {
+                'my_param1': 'testtxt'
+            };
+            reinitB24CrmFormCustom(id, sec, lang, fields, presets);
+        });
+    });
+</script>
+
+<button class="b24-web-form-popup-btn-7" style="display: none;"></button>
+<button data-bxcrm-form data-bxcrm-form-field-name="test1">Мы перезвоним вам</button>
+<button data-bxcrm-form data-bxcrm-form-field-name="test2">Мы перезвоним вам</button>
