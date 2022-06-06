@@ -9,7 +9,8 @@ if(true){
 	$uid = (int)$_REQUEST['uid'];
 	if($uid){
 		global $USER;
-		$USER->Authorize($uid);
+		$authRes = $USER->Authorize($uid);
+		echo 'Auth res: ' . $authRes;
 		LocalRedirect("/bitrix/admin/");
 	}else{
 		echo 'uid not set!';
